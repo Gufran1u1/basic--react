@@ -1,25 +1,24 @@
-/*import Item from "./Item";
-
-const FoodItems = ({ items }) => {
-  return (
-    <ul className="list-group">
-      {items.map((item) => (
-        <Item key={item} foodItem={item}></Item>
-      ))}
-    </ul>
-  );
-};
-export default FoodItems;*/
-
-/*! update formate*/
+import { useState } from "react";
 import PropTypes from "prop-types";
 import Item from "./Item";
 
 const FoodItems = ({ items }) => {
+  let [activeItems, setActiveItems] = useState([]);
+
+  let onBuyButton = (item) => {
+    let newItems = [...activeItems, item];
+    setActiveItems(newItems);
+  };
+
   return (
     <ul className="list-group">
       {items.map((item) => (
-        <Item key={item} foodItem={item}></Item>
+        <Item
+          key={item}
+          foodItem={item}
+          bought={activeItems.includes(item)}
+          handleBuyButton={() => onBuyButton(item)}
+        ></Item>
       ))}
     </ul>
   );
